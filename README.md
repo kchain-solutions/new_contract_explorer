@@ -77,9 +77,9 @@ As you can see in the following example, from the console interface of Chainstac
 }
 ```
 ### Step 3 - Run the application
-Enter with a terminal prompt into the application folder. At this point, run ```npm install``` and ```npm run test```.
+Access the application directory in terminal. At this point, run ```npm install``` and ```npm run test```.
 
-When you select the network configured in the ```config.json``` the application will start to scan the transaction packet into the blocks to find **New Contract instances** (to see some cases, you could wait some minutes). 
+When you select the network configured in the ```config.json``` the application will start to scan the transaction packet into the blocks to find **New Contract instances** (to see some cases appear, you could wait few minutes). 
 ![](./img/app_prompt1.png)
 
 ### Step 5 - Output example
@@ -88,8 +88,6 @@ Here is an output example that you can verify with a [Ethereum blockchain Explor
 ![](./img/explorer.png)
 
 ## Project Details
-
----
 
 The code makes use of the wss node endpoint and the web3.js library to access the pending transactions. The project aims to keep the accessing process as general and modular as possible to allow the users to connect to several different nodes that are part of several different networks. The user can use this code to connect to the nodes belonging to any EVM-based platforms like Ethereum, Polygon, Binance Smart Chain, Avalanche, fantom, etc.
 
