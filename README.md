@@ -19,11 +19,15 @@ Prints the information in the console.
 Here is an example of a similar repository.  
 [https://github.com/SethuRamanOmanakuttan/MemExplorer](https://github.com/SethuRamanOmanakuttan/MemExplorer)
 
-## Tutorial
+## Running the program
 
-Prerequisite: 
-- Install NodeJS. The code is tested with v18.12.1 
-- Create a Chainstack developer account
+### Prerequisites
+
+Make sure you have the following prerequisites in your system.
+
+* Node   ^v12.22.7
+* NPM    ^6.14.15
+* Chainstack account
 
 ### Step 1 - Create a Chainstack node
 1. Access to the the [Chainstack console](https://console.chainstack.com/) and create a new project ![](./img/new_project1.png) ![](./img/new_project2.png)
@@ -47,16 +51,26 @@ From the console interface of Chainstack you have to copy the WSS endpoint and p
 }
 ```
 ### Step 3 - Lunch the application
-```
-```
-### Step 4
-### Step 5
+Enter with a terminal prompt into the application folder. At this point, run "npm install" and then "npm run test"
+
+When you'll select the network created in the ```config.json``` the application will start to scan the transaction packet into the blocks to find **New Contract instances** (to find some instances you could wait some minutes). 
+![](./img/app_prompt1.png)
+
+### Step 5 - Output example
+Here is an output example that you can verify with a [Ethereum blockchain Explorer](https://etherscan.io/)
+![](./img/app_prompt2.png)
+![](./img/explorer.png)
 
 ## How it works
-
+The following code helps the user search on-chain for the publication of new contracts.
+A new contract is identified using the following procedure:
+When the application starts, it listens for the publication of new blocks.
+When a block header is downloaded, it loops through all of its transactions
+The transaction that identifies the publication of a new contract has the following properties
+a. The transaction has a null addressee
+b. The transaction receipt has a valued contract address field.
 ---
 
-The following code helps the user fetch and analyze pending transactions from a list of different blockchain networks. Pending transactions are the transactions that are yet to be part of a block. They are stored in an in-memory cache of a blockchain node called the mempool (Hence the name MemExplorer :D ). The user can access these transactions by connecting to a node that is part of a particular blockchain network and "subscribing" to the stream of pending transactions running through the node's memory pool. The code aims to enable easy access to these transactions and also helps the user analyze these transactions by displaying the relevant information regarding these transactions.
 
 ## Project Details
 
@@ -84,66 +98,8 @@ The project structure is as follows :
 | formatter.js  | Functions for formatting the text for display                                              |
 | parser.js     | Functions for reading,parsing and validating the contents of config.json file              |
 | prompter.js   | Functions for helping the user select between the platforms for accessing the transactions |
-| subscriber.js | Functions for setting up subscribers for pending transactions                              |
+| subscriber.js | Functions for setting up subscribers for transaction analysis                              |
 
-## Running the program
-
----
-
-### Prerequisites
-
-Make sure you have the following prerequisites in your system.
-
-* Node   ^v12.22.7
-* NPM    ^6.14.15
-
-### Install Dependencies
-
-Go to the root project folder and run
-
-    npm install
-
-### Edit config.json
-
-The config file is one of the key components of the whole project. It contains the names of the blockchain networks and also the wss endpoint of a single node that is part of the blockchain network. The data is structured in nested-json format and the user is free to add the information regarding multiple networks and its corresponding nodes . The general template of the file is as follows :
-```
-    {
-        "name-of-network" : {
-            "wss" : "wss-endpoint-of-the-node"
-        }
-    }
-
-```
-a sample config.json file looks like this :
-
-```
-    {
-        "polygon":
-            {
-                "wss": "wss://polygon-mainnet.g.com/1234567"
-            },
-        "ethereum":
-            {
-                "wss":"wss://mainnet.ethereum.io/9ae5c24092fc"
-            }
-    }
-
-```
-The program use this file in order to connect to various networks and their nodes. So,while editing the file, make sure that
-
-  * You don't change the name of the file
-  * you don't change the location of the file
-  * you always add the "wss" keyword for supplying the endpoint details
-  
-If there is a change in the name or location of the file, then you need to make corresponding changes to code before you can run it.
-
-### Execute the file
-
-Once you complete all the previous steps,  go to the root folder and run
-```
- npm start
-```
-If you have multiple networks given in your config.json, you can run multiple instances of the program in separate terminals, each accessing the nodes belonging to separate networks.
 
 ---
 
