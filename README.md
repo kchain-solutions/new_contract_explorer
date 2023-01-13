@@ -9,8 +9,8 @@ Suppose you go on the ‘listen to new blocks direction’. In that case, usuall
 — [https://docs.chainstack.com/api/ethereum/web3js-subscriptions#subscribe-newblockheaders](https://docs.chainstack.com/api/ethereum/web3js-subscriptions#subscribe-newblockheaders)
 
 The program needs to be built using a web3 library, such as Web3.js, Ethers.js, or Web3.py, and should have the following functionality:
-Connect to a node and listen for new blocks (or takes a block number as input)
-Identify transactions that create new smart contracts
+Connect to a node and listen for new blocks (or takes a block number as input).
+Identify transactions that create new smart contracts.
 Extract the relevant information:
 - New smart contract address
 - Address that deployed it
@@ -27,15 +27,15 @@ Make sure you have the following prerequisites in your system.
 
 * Node   ^v12.22.7
 * NPM    ^6.14.15
-* Chainstack account
+* Create a [Chainstack account](https://console.chainstack.com/user/login)
 
 ### Step 1 - Create a Chainstack node
-1. Access to the the [Chainstack console](https://console.chainstack.com/) and create a new project ![](./img/new_project1.png) ![](./img/new_project2.png)
-2. Click into the project and select **Join network**, now you can configure your client node. In the case of this tutotial It was selected an Ethereum mainnet node ![](./img/select_network.png) Default parameters will works fine when you access to the node deployment step. In this session you just have to select the clound infrastructure where you want deploy the node![](img/network_deployment_parameters.png) 
-3. When the node is up&running you can click on it and copy the WSS endpoint. ![](./img/node1.png) ![](./img/node2.png) 
+1. Access the [Chainstack console](https://console.chainstack.com/) and create a new project ![](./img/new_project1.png) ![](./img/new_project2.png)
+2. Click on the project card and select **Join network**. Now you can configure your client node. In the case of this tutorial, it was selected an Ethereum mainnet node. ![](./img/select_network.png) Default parameters will work fine when you access the node deployment step. At this point, you only have to choose the cloud infrastructure where you want deploy the node![](img/network_deployment_parameters.png) 
+3. When the node is up&running, you can click on it and copy the WSS endpoint. ![](./img/node1.png) ![](./img/node2.png) 
 
-### Step 2 - WSS API
-From the console interface of Chainstack you have to copy the WSS endpoint and paste in the ```config.json```
+### Step 2 - Edit program configuration
+From the console interface of Chainstack, you have to copy the WSS endpoint and paste it into the ```config.json```, as you can see in the following example. 
 
 ```json
 {
@@ -50,10 +50,10 @@ From the console interface of Chainstack you have to copy the WSS endpoint and p
     }
 }
 ```
-### Step 3 - Lunch the application
-Enter with a terminal prompt into the application folder. At this point, run "npm install" and then "npm run test"
+### Step 3 - Run the application
+Enter with a terminal prompt into the application folder. At this point, run ```npm install``` and ```npm run test```.
 
-When you'll select the network created in the ```config.json``` the application will start to scan the transaction packet into the blocks to find **New Contract instances** (to find some instances you could wait some minutes). 
+When you select the network created in the ```config.json``` the application will start to scan the transaction packet into the blocks to find **New Contract instances** (to find some instances you could wait some minutes). 
 ![](./img/app_prompt1.png)
 
 ### Step 5 - Output example
@@ -69,6 +69,21 @@ When a block header is downloaded, it loops through all of its transactions
 The transaction that identifies the publication of a new contract has the following properties
 a. The transaction has a null addressee
 b. The transaction receipt has a valued contract address field.
+
+```javascript
+//from subscriber.js
+for (let i = 0; i < transactionsCount; i++) {
+                try {
+                    const transaction = await _web3Object.eth.getTransactionFromBlock(_blockHeader.number, i);
+                    const receipt = await _web3Object.eth.getTransactionReceipt(transaction.hash);
+                    if (!transaction.to && receipt.contractAddress) {
+                        printTransaction(transaction, receipt);
+                    }
+                } catch (error) {
+                    console.error(`Transaction error: ${error}`);
+                }
+            }
+```
 ---
 
 
@@ -98,7 +113,7 @@ The project structure is as follows :
 | formatter.js  | Functions for formatting the text for display                                              |
 | parser.js     | Functions for reading,parsing and validating the contents of config.json file              |
 | prompter.js   | Functions for helping the user select between the platforms for accessing the transactions |
-| subscriber.js | Functions for setting up subscribers for transaction analysis                              |
+| subscriber.js | Functions for setting up subscribers for transactions analysis                             |
 
 
 ---
