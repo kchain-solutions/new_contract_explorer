@@ -1,0 +1,11 @@
+{
+    "ethereum": {
+        "wss": "WSS_ENDPOINT_HERE"
+    },
+    "polygon": {
+        "wss": "WSS_ENDPOINT_HERE"
+    },
+    "name_of_evm_network_here": {
+        "wss": "WSS_ENDPOINT_HERE"
+    }
+}

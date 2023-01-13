@@ -1,0 +1,21 @@
+{
+  "name": "new_contract_explorer",
+  "version": "1.0.0",
+  "description": "A package to view pending transactions in a blockchain network",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Valerio Mellini",
+  "license": "ISC",
+  "dependencies": {
+    "ajv": "^8.11.0",
+    "boxen": "^5.1.2",
+    "chalk": "^4.1.2",
+    "figlet": "^1.5.2",
+    "inquirer": "^8.2.2",
+    "web3": "^1.7.3"
+  },
+  "type": "commonjs"
+}
