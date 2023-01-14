@@ -20,16 +20,16 @@ Here is an example of a similar repository.
 [https://github.com/SethuRamanOmanakuttan/MemExplorer](https://github.com/SethuRamanOmanakuttan/MemExplorer)
 
 ## How it works
-The following code helps the user search on-chain for the deployment of a new contract.
+The program helps the user search on-chain for the deployment of a new contract.
 A new contract is identified using the following procedure:
-When the application starts, it listens for the publication of new blocks on-chain.
+when the application starts, it listens for the publication of new blocks on-chain.
 When a block header is downloaded, it loops through all its transactions.
 The transaction that identifies a new contract deployment has the following properties:
-a. The transaction field ```to``` is ```null```
-b. The transaction receipt has a valued contractAddress field.
+- The transaction field ```to``` is ```null```
+- The transaction receipt has a valued contractAddress field.
 
 ```javascript
-//from subscriber.js
+//From subscriber.js
 for (let i = 0; i < transactionsCount; i++) {
                 try {
                     const transaction = await _web3Object.eth.getTransactionFromBlock(_blockHeader.number, i);
@@ -43,7 +43,7 @@ for (let i = 0; i < transactionsCount; i++) {
             }
 ```
 
-The code above shows the iteration loop through the transactions, the condition, and the printing function. 
+The code above shows the iteration loop through the transactions, the new contract condition, and the printing function. 
 
 ## Running the program
 
@@ -57,7 +57,7 @@ Make sure you have the following prerequisites in your system.
 
 ### Step 1 - Deploy a Chainstack node
 1. Access the [Chainstack console](https://console.chainstack.com/) and create a new project ![](./img/new_project1.png) ![](./img/new_project2.png)
-2. Click on the project card and select **Join network**. Now you can configure your client node. In the case of this tutorial, it was selected an Ethereum mainnet node. ![](./img/select_network.png) Default parameters will work fine when you access the node deployment step. At this point, you only have to choose the cloud infrastructure where you want to deploy the node![](img/network_deployment_parameters.png) 
+2. Click on the project card and select **Join network**. Now you can configure your client node. In the case of this tutorial, it was selected an Ethereum mainnet node. ![](./img/select_network.png) Default parameters will work fine when you access the node deployment step. At this point, you only have to choose the cloud provider where you want to deploy the node![](img/network_deployment_parameters.png) ![](./img/cloud_provider.png)
 3. When the node is up&running, you can click on it and copy the WSS endpoint. ![](./img/node1.png) ![](./img/node2.png) 
 
 ### Step 2 - Program configuration
@@ -77,13 +77,13 @@ As you can see in the following example, from the console interface of Chainstac
 }
 ```
 ### Step 3 - Run the application
-Access the application directory in terminal. At this point, run ```npm install``` and ```npm run test```.
+Access the application directory in the terminal. At this point, run ```npm install``` and ```npm run test```.
 
-When you select the network configured in the ```config.json``` the application will start to scan the transaction packet into the blocks to find **New Contract instances** (to see some cases appear, you could wait few minutes). 
+When you select the **platform** (configured in the ```config.json```) the application will start to scan the transaction packet into the blocks to find **New contract instances** (to see some cases appear, you could wait a few minutes). 
 ![](./img/app_prompt1.png)
 
 ### Step 5 - Output example
-Here is an output example that you can verify with a [Ethereum blockchain Explorer](https://etherscan.io/)
+Here is an output example that you can verify with an [Ethereum blockchain explorer](https://etherscan.io/)
 ![](./img/app_prompt2.png)
 ![](./img/explorer.png)
 
