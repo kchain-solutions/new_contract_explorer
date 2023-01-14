@@ -87,6 +87,11 @@ Here is an output example that you can verify with an [Ethereum blockchain explo
 ![](./img/app_prompt2.png)
 ![](./img/explorer.png)
 
+### Binance error solved
+If you run the application with BNB you will probably get this error: **"Number can only safely store up to 53 bits"**
+To solve it, you must modify the file ```node_modules/web3-core-helpers/lib/formatters.js``` and change this line: ```tx.gas = utils.hexToNumber(tx.gas);``` with this one: ```if (tx.gas) tx.gas = outputBigNumberFormatter(tx.gas);``` 
+Here is the referece to the [Github issue](https://github.com/web3/web3.js/issues/3912)
+
 ## Project Details
 
 The code makes use of the wss node endpoint and the web3.js library to access the pending transactions. The project aims to keep the accessing process as general and modular as possible to allow the users to connect to several different nodes that are part of several different networks. The user can use this code to connect to the nodes belonging to any EVM-based platforms like Ethereum, Polygon, Binance Smart Chain, Avalanche, fantom, etc.
