@@ -25,7 +25,7 @@ A new contract is identified using the following procedure:
 when the application starts, it listens for the publication of new blocks on-chain.
 When a block header is downloaded, it loops through all its transactions.
 The transaction that identifies a new contract deployment has the following properties:
-- The transaction field ```to``` is ```null```
+- The transaction field ```to``` is ```null``` or ```0x0```
 - The transaction receipt has a valued contractAddress field.
 
 ```javascript
@@ -34,7 +34,7 @@ for (let i = 0; i < transactionsCount; i++) {
                 try {
                     const transaction = await _web3Object.eth.getTransactionFromBlock(_blockHeader.number, i);
                     const receipt = await _web3Object.eth.getTransactionReceipt(transaction.hash);
-                    if (!transaction.to && receipt.contractAddress) {
+                    if ((!transaction.to || transaction.to == "0x0") && receipt.contractAddress) {
                         printTransaction(transaction, receipt);
                     }
                 } catch (error) {
